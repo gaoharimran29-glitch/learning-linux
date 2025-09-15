@@ -96,22 +96,27 @@ ssh -L 8080:localhost:80 user@server_ip
 
 ### 1 Check if SSH is Installed
 
+```bash
 ssh -V
+```
 
 If not installed, install:
 
 ```bash
 
-sudo apt update sudo apt install openssh-client openssh-server -y
+sudo apt update 
+sudo apt install openssh-client openssh-server -y
 
 ```
 
 ### 2 Enable & Start SSH Service
 ```bash
-sudo systemctl enable ssh sudo systemctl start ssh
-
+sudo systemctl enable ssh 
+sudo systemctl start ssh
+```
 Check service:
 
+```bash
 sudo systemctl status ssh
 ```
 ---
