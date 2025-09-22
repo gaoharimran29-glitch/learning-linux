@@ -155,10 +155,51 @@ ssh user@server_ip
 
 ## 🛡 Security Best Practices for SSH
 
-- Change default port (22 → something else)  
-- Disable root login  
-- Use SSH keys instead of passwords  
-- Use a firewall (UFW/iptables) to restrict SSH access  
-- Enable Fail2Ban for brute-force protection  
+### Change default port (22 → something else)
+- Edit the file and change port 22 to your custom port. Remove # before the port in file
+- Suppose we are changing it to port 2222
+  
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+- Restart ssh
+  
+```bash
+sudo systemctl restart ssh
+```
+- Now use this command from remote machine to acces your server.
+  
+```bash
+sudo -p 2222 user@ip
+```
+### Disable root login
 
+- Edit the file and change PermitRootLogin prohibit-password as PermitRootLogin no. Remove # before the port in file
+ 
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+- Restart ssh
+  
+```bash
+sudo systemctl restart ssh
+```
+- Now if you try below commands it will result an error
+  
+```bash
+ssh root@ip
+```
+### Use SSH keys instead of passwords
+
+- Edit the file and change PasswordAuthentication to no. Remove # before the port in file
+ 
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+- Restart ssh
+  
+```bash
+sudo systemctl restart ssh
+```
+- Now you can only use keys to login in server from remote
 ---
