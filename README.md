@@ -1,8 +1,3 @@
-# 📑 Index
-
-1. [Introduction to Linux](#-What-is-Linux?)
-2. [SSH in linux)](#️-SSH)
-3. [File System](#-Linux-File-System)
 
 ## What is Linux?
 
