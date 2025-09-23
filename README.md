@@ -1,3 +1,8 @@
+# 📑 Index
+
+1. [Introduction to Linux](#-What-is-Linux?)
+2. [SSH in linux)](#️-SSH)
+3. [File System](#-Linux-File-System)
 
 ## What is Linux?
 
@@ -37,7 +42,7 @@ A *Linux distribution (distro)* is a packaged version of Linux that includes:
 
 ---
 
-# SSH (Secure Shell)
+# SSH
 
 ---
 
@@ -78,7 +83,7 @@ ssh -L 8080:localhost:80 user@server_ip
 ```
 ---
 
-## 🛠 Common SSH Commands
+## Common SSH Commands
 
 | Command | Description |
 |---------|-------------|
@@ -153,7 +158,7 @@ ssh user@server_ip
 ```
 ---
 
-## 🛡 Security Best Practices for SSH
+## Security Best Practices for SSH
 
 ### Change default port (22 → something else)
 - Edit the file and change port 22 to your custom port. Remove # before the port in file
@@ -202,4 +207,128 @@ sudo nano /etc/ssh/sshd_config
 sudo systemctl restart ssh
 ```
 - Now you can only use keys to login in server from remote
+---
+
+# Linux File System
+
+## Philosophy
+- **Everything is a file** → text files, directories, devices, processes, sockets.
+- Consistency and simplicity across the OS.
+
+---
+
+## Filesystem Hierarchy Standard (FHS)
+
+### Root `/`
+Base of the filesystem tree. All directories start here.
+
+### Key Directories
+- `/bin` → Essential user binaries (ls, cp, mv).
+- `/sbin` → System binaries (fdisk, iptables).
+- `/etc` → System-wide config files.
+- `/home` → User home directories.
+- `/root` → Root user’s home.
+- `/var` → Variable data (logs, cache).
+- `/tmp` → Temporary files (cleared on reboot).
+- `/usr` → User programs & data:
+  - `/usr/bin` → Extra user commands
+  - `/usr/sbin` → Extra system admin commands
+  - `/usr/share` → Shared docs & man pages
+- `/lib` → Shared libraries for `/bin` and `/sbin`.
+- `/dev` → Device files (e.g. `/dev/sda`).
+- `/proc` → Virtual FS (process/kernel info).
+- `/sys` → Hardware/driver info.
+- `/media` → Auto-mounted external devices.
+- `/mnt` → Temporary mount points.
+- `/opt` → Optional software packages.
+- `/boot` → Boot loader files, kernel.
+
+---
+
+## File Types (`ls -l` first character)
+- `-` → Regular file  
+- `d` → Directory  
+- `l` → Symbolic link  
+- `c` → Character device  
+- `b` → Block device  
+- `p` → Named pipe  
+- `s` → Socket  
+
+---
+
+## Permissions & Ownership
+Format: `rwxr-xr--`
+- 3 sets: owner, group, others.
+- `r` = read, `w` = write, `x` = execute.
+
+### Commands
+- `chmod` → change permissions  
+- `chown` → change owner  
+- `umask` → default permissions for new files  
+
+---
+
+## Links
+- **Hard link** → Same inode, another name.  
+- **Soft link (symlink)** → Shortcut pointer to original.  
+
+---
+
+## Inodes
+- Metadata of files (permissions, owner, timestamps, block locations).
+- View with `ls -i`.
+
+---
+
+## Mounting & Partitions
+- Devices must be **mounted** into FS tree.  
+- `mount /dev/sdb1 /mnt`  
+- `/etc/fstab` → persistent mounts.  
+
+---
+
+## Special Virtual FS
+- `/proc` → Processes, system info (cpuinfo, meminfo).  
+- `/sys` → Kernel and hardware configs.  
+- `/dev` → Device files.  
+- `tmpfs` → RAM-based temp FS.  
+
+---
+
+## Concepts
+- **File Descriptors**:  
+  - 0 = stdin  
+  - 1 = stdout  
+  - 2 = stderr  
+- **Redirection**: `>`, `<`, `2>`, `|`  
+- **Quotas** → Disk usage limits.  
+- **Extended Attributes** → Extra metadata.  
+- **ACLs** → Fine-grained permissions (`setfacl`).  
+
+---
+
+## Filesystem Types
+- **ext4** → Default, stable.  
+- **xfs** → High performance.  
+- **btrfs** → Modern, snapshots, compression.  
+- **zfs** → Advanced, enterprise-level.  
+- **tmpfs** → RAM storage.  
+
+---
+
+## Commands
+- Navigation: `pwd`, `cd`, `ls`  
+- File ops: `cp`, `mv`, `rm`, `touch`  
+- Info: `file`, `stat`, `ls -lh`  
+- Search: `find`, `locate`, `grep`  
+- Disk: `df -h`, `du -sh`, `lsblk`, `mount`, `umount`  
+
+---
+
+## Security Bits
+- **SUID**: Run as owner (`s` bit).  
+- **SGID**: Run as group.  
+- **Sticky bit**: Only owner can delete in shared dirs (`/tmp`).  
+- **SELinux/AppArmor**: Mandatory Access Control.  
+
 ---
